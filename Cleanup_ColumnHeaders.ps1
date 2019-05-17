@@ -16,12 +16,14 @@ Write-Output "Output is"
 $updated = $updated -replace $pat, ''
 $updated = $updated -replace '"', '' #| Out-File "F:\Shared\Ali\tmp\t1\NPPES_Data_Dissemination_May_2019\zz_db.csv"
 
+$cnt = 100
 $aa = $updated -split ','
-$bb = ""
+$bb = "CREATE TABLE dbo.table3 (`r`n"
 foreach($it in $aa) {
-    $bb += "$it VARCHAR(MAX),`r`n"
+    $script:cnt++
+    $bb += "`t`tC$($script:cnt)_$it VARCHAR(MAX),`r`n"
 }
-
+$bb += ") ON [PRIMARY]`r`n"
 #Write-Output $updated
 
 Set-Content "F:\Shared\Ali\tmp\t1\NPPES_Data_Dissemination_May_2019\zz_db.csv" $bb
